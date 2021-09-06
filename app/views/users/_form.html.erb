@@ -22,7 +22,7 @@
     </div>
      <div>
         <%= form.label :role%>
-        <%= form.text_field :role%>
+        <%= form.select :role, ['user','admin'], selected:'user'%>
         <% user.errors.full_messages_for(:role).each do |message|%>
             <div><%= message%></div>
         <%end%>
