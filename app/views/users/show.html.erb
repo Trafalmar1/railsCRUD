@@ -7,3 +7,9 @@
     <li><%= link_to "Destroy", user_path(@user), method: :delete, data:{confirm: "Are you sure?"}%></li>
     <li><a href="/users">Go back</a></li>
 </ul>
+
+<h2>Profiles:</h2>
+<%= render @user.profiles%>
+
+<h2>Add a profile:</h2>
+<%= render 'profiles/form'%>

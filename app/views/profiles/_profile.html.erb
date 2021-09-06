@@ -1,0 +1,20 @@
+<p>
+    <strong>name</strong>
+    <%= profile.name%>
+</p>
+<p>
+    <strong>birthday</strong>
+    <%= profile.birthday%>
+</p>
+<p>
+    <strong>city</strong>
+    <%= profile.city%>
+</p>
+<p>
+    <strong>gender</strong>
+    <%= profile.gender%>
+</p>
+<p>
+    <%= link_to 'Destroy profile', [profile.user,profile],method: :delete, data:{confirm:"Are you sure?"}%>
+</p>
+<hr/>
