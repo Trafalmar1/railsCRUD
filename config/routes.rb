@@ -6,4 +6,7 @@ Rails.application.routes.draw do
       resources :profiles
     end  
   end
+  get "*page", to:'static#index',constaint: ->(req) do
+    !req.xhr? && req.format.html?
+  end
 end
