@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  root "users#index"
-  
-  resources :users do
-    resources :profiles
+  root 'static#index'
+  namespace :api do
+    namespace :v1, defaults:{format: 'json'} do
+      resources :users
+      resources :profiles
+    end  
   end
 end

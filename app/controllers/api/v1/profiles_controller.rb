@@ -1,6 +1,4 @@
-class ProfilesController < ApplicationController
-
-    http_basic_authenticate_with name: 'dhh', password:'secret', only:[:destroy]
+class Api::V1::ProfilesController < ApplicationController
 
     def create
         @user = User.find(params[:user_id])
@@ -16,7 +14,7 @@ class ProfilesController < ApplicationController
     end
 
     private
-        def profile_params
-            params.require(:profile).permit(:name,:birthday,:city,:gender,:status)
-        end
+    def profile_params
+        params.require(:profile).permit(:name,:birthday,:city,:gender,:status)
+    end
 end

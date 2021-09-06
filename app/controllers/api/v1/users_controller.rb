@@ -1,9 +1,14 @@
-class UsersController < ApplicationController
-
-  http_basic_authenticate_with name: 'dhh', password:'secret', exept:[:index, :show]
+class Api::V1::UsersController < ApplicationController
 
   def index
-    @users = User.all
+    render json: {
+      :users => [
+        {
+          :username => 'TrafalMar',
+          :email => 'vladiksav2@gmail.com'
+        }
+      ]
+    }.to_json
   end
 
   def show
