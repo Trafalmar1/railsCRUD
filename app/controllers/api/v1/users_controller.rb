@@ -1,51 +1,62 @@
 class Api::V1::UsersController < ApplicationController
-  protect_from_forgery with: :null_session
+  before_action :authenticate_user, except:[:index,:create]
 
   def index
-    render json: User.select(:id,:username,:email,:role,:create_at).all.to_json
+    render json: User.select(:id,:username,:email,:role).all.to_json
   end
 
   def show
-    render json: User.select(:id,:username,:email,:role,:create_at).find(params[:id]).to_json
+    begin
+      user = User.select().find(params[:id])
+      render json: user.as_json(only:[:id,:username,:email,:role])
+    rescue => exception
+      render json: {error:{message:"User not found"}}
+    end
   end
 
   def create
-    user = User.new(user_params)
-    if user.save
-      render json: user.to_json
+    user = User.create(user_params)
+    if user.valid? and user.save
+      render json: user.as_json(only:[:id,:email,:username,:role])
     else
       render json: {error: user.errors.messages}, status: 422
     end
   end
 
   def update
-    user = User.find(params[:id])
-
-    if user.update(user_params)
-      render json: user.to_json
-    else
-      render json: {error: user.errors.messages}, status: 422
+    begin
+      if current_user.update(user_params)
+        render json: current_user.to_json
+      else
+        render json: { errors: current_user.errors }, status: :unprocessable_entity
+      end
+    rescue => exception
+      render json: { errors: "Not Authorized" }
     end
   end
 
   def destroy
     begin
       user = User.find(params[:id])
-    if user.destroy
-      head :no_content
-    else
-      render json: {error: user.errors.messages}, status: 422
-    end
+      if user.id == current_user.id or current_user.role == 'admin'
+        if user.destroy()
+          render json: {message:"User #{user.email} was deleted"}
+        else
+          render json: { errors: user.errors }, status: :unprocessable_entity
+        end
+      else
+        render json: { errors: "Access denied" }
+      end
+      
     rescue => exception
-      render json: {error: "User not found"}, status: 404
+      render json: exception
     end
-    
   end
   
 
   private
     def user_params
-      params.require(:user).permit(:username,:email,:password,:role,:status)
+      params.require(:user).permit(:username,:email,:password, :password_confiramation,:role,:status)
     end
 
 end
