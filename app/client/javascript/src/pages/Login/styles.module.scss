@@ -1,0 +1,27 @@
+@import "../../styles/colors.scss";
+
+.Center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 40rem;
+  & a {
+    text-decoration: none;
+    margin-top: 2rem;
+    color: $text-dark;
+    font-size: 1.8rem;
+    &:hover {
+      color: $edit;
+    }
+  }
+}
