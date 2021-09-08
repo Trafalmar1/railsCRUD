@@ -8,8 +8,8 @@ const UserCard: FC<User> = ({ username, email, profiles }) => {
     <Card>
       <p>{username}</p>
       <p>{email}</p>
-      <p>{`${profiles.length ? profiles.length : 0} ${
-        profiles.length === 1 ? "profile" : "profiles"
+      <p>{`${profiles?.length ? profiles?.length : 0} ${
+        profiles?.length === 1 ? "profile" : "profiles"
       }`}</p>
     </Card>
   );

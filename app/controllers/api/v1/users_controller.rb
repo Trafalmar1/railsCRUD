@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
 
   def show
     begin
-      user = User.select().find(params[:id])
+      user = User.find(params[:id])
       render json: user.as_json(only:[:id,:username,:email,:role])
     rescue => exception
       render json: {error:{message:"User not found"}}

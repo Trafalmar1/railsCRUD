@@ -1,4 +1,5 @@
-import { Axios } from "./config/axios.config";
+import { AuthAxios, Axios } from "./config/axios.config";
+import { UserData } from "./userApi";
 
 type SignUpData = {
   username: string;
@@ -13,18 +14,17 @@ export type LoginData = {
 
 export type SignInData = {
   token?: string;
-  userId?: string;
-  role?: string;
+  user?: UserData;
 };
 
 export const signUp = (data: SignUpData) => {
-  return Axios.post("/sign-up", { ...data }).then((res) => {
+  return Axios.post("/users", { user: { ...data } }).then((res) => {
     return res.data;
   });
 };
 
 export const signIn = (data: LoginData) => {
-  return Axios.post("/login", { ...data }).then((res) => {
+  return AuthAxios.post("/login", { ...data }).then((res) => {
     return res.data as SignInData;
   });
 };

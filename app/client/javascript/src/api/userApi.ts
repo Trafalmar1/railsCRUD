@@ -5,29 +5,28 @@ export type UserData = {
   username: string;
   email: string;
   role: string;
-  createdAt?: string;
 };
 
 export const getUsers = () => {
-  return Axios.get("/user").then((res) => {
+  return Axios.get("/users").then((res) => {
     return res;
   });
 };
 
 export const getOneUser = (id: string) => {
-  return Axios.get(`/user/${id}`).then((res) => {
+  return Axios.get(`/users/${id}`).then((res) => {
     return res;
   });
 };
 
 export const updateUser = (data: UserData) => {
-  return Axios.put(`/user`, { ...data }).then((res) => {
+  return Axios.put(`/users`, { ...data }).then((res) => {
     return res;
   });
 };
 
 export const deleteUser = (id: string) => {
-  return Axios.delete(`/user/${id}`).then((res) => {
+  return Axios.delete(`/users/${id}`).then((res) => {
     return res;
   });
 };

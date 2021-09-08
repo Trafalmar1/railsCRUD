@@ -5,16 +5,18 @@ import { AppDispatch } from "../../redux/store";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 
-export const login = (data: SignInData) => async (dispatch: AppDispatch) => {
-  dispatch({
-    type: LOGIN,
-    payload: {
-      loggedIn: true,
-      token: data.token,
-      userId: data.userId,
-    },
-  });
-};
+export const login =
+  (data: { token: string; userId: string }) =>
+  async (dispatch: AppDispatch) => {
+    dispatch({
+      type: LOGIN,
+      payload: {
+        loggedIn: true,
+        token: data.token,
+        userId: data.userId,
+      },
+    });
+  };
 
 const removeLocalStorage = () => {
   localStorage.removeItem("token");
@@ -33,18 +35,18 @@ export const signIn =
   (data: LoginData, callBack?: (res: string) => void) =>
   async (dispatch: AppDispatch) => {
     const res: SignInData = await api.signIn(data);
-    if (!res || !res.token || !res.userId) {
+    if (!res || !res.token || !res.user?.id) {
       if (callBack) callBack("error");
       return;
     }
     if (callBack) callBack("success");
     localStorage.setItem("token", res.token);
-    localStorage.setItem("userId", res.userId);
+    localStorage.setItem("userId", res.user.id);
     const remainingMilliseconds = 60 * 60 * 1000 * 24 * 10;
     const expiryDate = new Date(new Date().getTime() + remainingMilliseconds);
     localStorage.setItem("expiryDate", expiryDate.toISOString());
     autoLogout(remainingMilliseconds);
-    dispatch(signInAction(res.token, res.userId));
+    dispatch(signInAction(res.token, res.user.id));
   };
 
 export const logout = () => (dispatch: AppDispatch) => {
