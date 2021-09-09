@@ -10,7 +10,7 @@ class SessionsController < Devise::SessionsController
 
         render json: response
       else
-        render json: { errors: { 'email or password' => ['is invalid'] } }, status: :unprocessable_entity
+        render json: { errors: { 'email or password' => ['is invalid'] } }
       end
       rescue => exception
         render json: exception

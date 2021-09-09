@@ -13,6 +13,7 @@
 
 html {
   font-size: 62.5%;
+
   background-color: $background;
   @media screen and (max-width: $mobile) {
     font-size: 50%;
@@ -34,4 +35,22 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.Toaster {
+  transform: scale(1.5) translateX(-7rem) translateY(-4rem);
+  @media screen and (max-width: 480px) {
+    transform: none;
+    font-size: 2rem;
+    & > div {
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+      padding: 2rem 1rem;
+    }
+    & svg {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
 }
