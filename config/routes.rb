@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users
       resources :profiles
+      resources :dashboard
     end 
   end
   get "*page", to:'static#index',constaint: ->(req) do

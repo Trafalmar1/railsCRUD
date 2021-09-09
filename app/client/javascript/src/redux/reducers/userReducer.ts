@@ -16,9 +16,9 @@ export type User = {
 };
 
 export type Dashboard = {
-  userCount: number;
-  profileCount: number;
-  olderThan18: number;
+  user_count: number;
+  profile_count: number;
+  profiles_over_18: number;
 };
 
 export type UserReducer = {

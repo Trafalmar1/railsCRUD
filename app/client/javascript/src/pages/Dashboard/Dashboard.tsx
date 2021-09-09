@@ -23,11 +23,11 @@ const Dashboard = () => {
     <>
       <Title>Dashboard:</Title>
       <div className={classes.DashboardList}>
-        <DashboardItem title="Users:" number={dashboard?.userCount} />
-        <DashboardItem title="Profiles:" number={dashboard?.profileCount} />
+        <DashboardItem title="Users:" number={dashboard?.user_count} />
+        <DashboardItem title="Profiles:" number={dashboard?.profile_count} />
         <DashboardItem
           title="Profiles over 18 years old:"
-          number={dashboard?.olderThan18}
+          number={dashboard?.profiles_over_18}
         />
       </div>
     </>

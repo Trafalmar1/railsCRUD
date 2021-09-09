@@ -25,14 +25,13 @@ class Api::V1::ProfilesController < ApplicationController
 
 	def update
     begin
-			user = current_user
-			profile = Profile.find(params[:id])
+		user = current_user
+		profile = Profile.find(params[:id])
 
-			if(!isAdminOrOwner(user,profile))
-				render json:{error:{message:"Access denied"}},status:401
-				return
-			end
-
+		if(!isAdminOrOwner(user,profile))
+			render json:{error:{message:"Access denied"}},status:401
+			return
+		end
       if profile.update(profile_params)
         render json: profile.to_json
       else
@@ -45,19 +44,18 @@ class Api::V1::ProfilesController < ApplicationController
 
 	def destroy
     begin
-			user = current_user
-      profile = Profile.find(params[:id])
+		user = current_user
+      	profile = Profile.find(params[:id])
+		if(!isAdminOrOwner(user,profile))
+			render json:{error:{message:"Access denied"}},status:401
+			return
+		end
 
-			if(!isAdminOrOwner(user,profile))
-				render json:{error:{message:"Access denied"}},status:401
-				return
-			end
-
-			if profile.destroy()
-				render json: {message:"Profile #{profile.name} was deleted"}
-			else
-				render json: { errors: profile.errors }, status: :unprocessable_entity
-			end
+		if profile.destroy()
+			render json: {message:"Profile #{profile.name} was deleted"}
+		else
+			render json: { errors: profile.errors }, status: :unprocessable_entity
+		end
     rescue => exception
       render json: {error:{message:exception}}
     end
@@ -68,9 +66,9 @@ class Api::V1::ProfilesController < ApplicationController
       params.require(:profile).permit(:name,:gender,:city,:birthday)
     end
 		
-		def isAdminOrOwner(user,profile)
-			isAdmin = user.role == "admin"
-			isOwner = user.id == profile.user_id
-			isAdmin || isOwner
-		end
+	def isAdminOrOwner(user,profile)
+		isAdmin = user.role == "admin"
+		isOwner = user.id == profile.user_id
+		isAdmin || isOwner
+	end
 end
