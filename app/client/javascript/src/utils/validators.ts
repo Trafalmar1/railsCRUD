@@ -12,3 +12,7 @@ export const notEmpty = (value: string) => {
 export const isDate = (value: string) => {
   return moment(value, "DD.MM.YYYY", true).isValid();
 };
+
+export const minLength = (length: number) => {
+  return (value: string) => value.length >= length;
+};

@@ -19,7 +19,7 @@ class Api::V1::ProfilesController < ApplicationController
 		if profile.valid? and profile.save
 		  render json: profile.as_json
 		else
-		  render json: {error: profile.errors.messages}, status: 422
+		  render json: {error: profile.errors.messages}
 		end
 	end
 

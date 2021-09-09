@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 
 import api from "../../api";
-import { email, notEmpty } from "../../utils/validators";
+import { email, minLength, notEmpty } from "../../utils/validators";
 
 type Value = {
   value: string;
@@ -28,7 +28,12 @@ const initialData: SignUpFormData = {
     valid: true,
     touched: false,
   },
-  password: { value: "", validators: [notEmpty], valid: true, touched: false },
+  password: {
+    value: "",
+    validators: [notEmpty, minLength(6)],
+    valid: true,
+    touched: false,
+  },
   role: { value: "user", validators: [], valid: true, touched: false },
 };
 
@@ -93,13 +98,8 @@ const useSignUp = () => {
     return isFormValid;
   };
 
-  const submitHandler = (e: FormEvent) => {
+  const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-
-    if (!validate()) {
-      errorToast("Form is invalid");
-      return;
-    }
 
     const data = {
       username: form.username.value,
@@ -107,15 +107,20 @@ const useSignUp = () => {
       password: form.password.value,
       role: form.role.value,
     };
-    api
-      .signUp(data)
-      .then((res) => {
-        successToast("Account was created");
-        history.push("/login");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const res = await api.signUp(data);
+      if (res?.error) {
+        for (let key in res.error) {
+          errorToast(`${key}: ${res.error[key]}`);
+        }
+        return;
+      }
+
+      successToast("Account was created");
+      history.push("/login");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const inputBlurHandler = (name: keyof SignUpFormData) => {

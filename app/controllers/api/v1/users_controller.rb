@@ -20,7 +20,7 @@ class Api::V1::UsersController < ApplicationController
       if user.valid? and user.save
         render json: user.as_json(only:[:id,:email,:username,:role])
       else
-        render json: {error: user.errors.messages}, status: 422
+        render json: {error: user.errors.messages}
       end
     rescue => exception
       render json: {error:{message:exception}}

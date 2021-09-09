@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import moment from "moment";
@@ -25,38 +25,60 @@ export type FormData = {
   city: Value;
 };
 
+const initialData: FormData = {
+  name: {
+    value: "",
+    validators: [notEmpty],
+    valid: true,
+    touched: false,
+  },
+  gender: {
+    value: "male",
+    validators: [notEmpty],
+    valid: true,
+    touched: false,
+  },
+  birthday: {
+    value: "",
+    validators: [notEmpty, isDate],
+    valid: true,
+    touched: false,
+  },
+  city: {
+    value: "",
+    validators: [notEmpty],
+    valid: true,
+    touched: false,
+  },
+};
+
 const useProfileModal = (
   mode: "creation" | "update" = "creation",
   profile?: ProfileData
 ) => {
-  const initialData: FormData = {
-    name: {
-      value: profile ? profile.name : "",
-      validators: [notEmpty],
-      valid: true,
-      touched: false,
-    },
-    gender: {
-      value: profile ? profile.gender : "male",
-      validators: [notEmpty],
-      valid: true,
-      touched: false,
-    },
-    birthday: {
-      value: profile ? moment(profile.birthday).format("DD.MM.YYYY") : "",
-      validators: [notEmpty, isDate],
-      valid: true,
-      touched: false,
-    },
-    city: {
-      value: profile ? profile.city : "",
-      validators: [notEmpty],
-      valid: true,
-      touched: false,
-    },
-  };
   const [form, setForm] = useState<FormData>(initialData);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setForm({
+      name: {
+        ...initialData.name,
+        value: profile ? profile.name : "",
+      },
+      gender: {
+        ...initialData.gender,
+        value: profile ? profile.gender : "male",
+      },
+      birthday: {
+        ...initialData.birthday,
+        value: profile ? moment(profile.birthday).format("DD.MM.YYYY") : "",
+      },
+      city: {
+        ...initialData.city,
+        value: profile ? profile.city : "",
+      },
+    });
+  }, [profile]);
 
   const errorToast = (text: string) => {
     toast.error(text, {

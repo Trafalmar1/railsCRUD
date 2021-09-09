@@ -20,7 +20,7 @@ export const getOneUser = (id: string) => {
 };
 
 export const updateUser = (data: UserData) => {
-  return Axios.put(`/users`, { ...data }).then((res) => {
+  return Axios.put(`/users/${data.id}`, { ...data }).then((res) => {
     return res;
   });
 };

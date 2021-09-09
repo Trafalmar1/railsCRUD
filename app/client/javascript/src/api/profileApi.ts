@@ -10,25 +10,25 @@ export type ProfileData = {
 };
 
 export const getProfiles = () => {
-  return Axios.get("/profile").then((res) => {
+  return Axios.get("/profiles").then((res) => {
     return res;
   });
 };
 
 export const createProfile = (data: ProfileData) => {
-  return Axios.post("/profile", { ...data }).then((res) => {
+  return Axios.post("/profiles", { ...data }).then((res) => {
     return res;
   });
 };
 
 export const deleteProfile = (id: string) => {
-  return Axios.delete(`/profile/${id}`).then((res) => {
+  return Axios.delete(`/profiles/${id}`).then((res) => {
     return res;
   });
 };
 
 export const updateProfile = (data: ProfileData) => {
-  return Axios.put("/profile", { ...data }).then((res) => {
+  return Axios.put(`/profiles/${data.id}`, { ...data }).then((res) => {
     return res;
   });
 };

@@ -7,14 +7,12 @@ import {
 } from "../actions/userActions";
 import { LOGIN, LOGOUT } from "../actions/authActions";
 
-type Profile = { id: string };
-
 export type User = {
   id: string;
   username: string;
   email: string;
   role: string;
-  profiles: Profile[];
+  profiles_count: number;
 };
 
 export type Dashboard = {

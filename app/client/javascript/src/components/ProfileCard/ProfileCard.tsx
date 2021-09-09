@@ -22,7 +22,7 @@ type ProfileCardProps = {
 };
 
 const ProfileCard: FC<ProfileCardProps> = ({ profile }) => {
-  const { id, name, birthday, city, gender, userId } = profile;
+  const { id, name, birthday, city, gender, user_id } = profile;
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
   const { user, profileOwner } = useSelector(
@@ -38,8 +38,8 @@ const ProfileCard: FC<ProfileCardProps> = ({ profile }) => {
   };
 
   const getProfileOwnerHandler = () => {
-    if (userId === profileOwner?.id) return;
-    dispatch(getProfileOwner(userId));
+    if (user_id === profileOwner?.id) return;
+    dispatch(getProfileOwner(user_id));
   };
 
   const renderControls = () => {
@@ -66,7 +66,7 @@ const ProfileCard: FC<ProfileCardProps> = ({ profile }) => {
   };
 
   const isOwnerOrAdmin = () => {
-    return user?.id === userId || user?.role === "admin";
+    return user?.id === user_id || user?.role === "admin";
   };
 
   return (
