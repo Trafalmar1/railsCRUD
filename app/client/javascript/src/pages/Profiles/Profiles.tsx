@@ -7,10 +7,12 @@ import { ProfileReducer } from "../../redux/reducers/profileReducer";
 import { UserReducer } from "../../redux/reducers/userReducer";
 import { RootState } from "../../redux/store";
 import { Title } from "../../UI";
+import useTitle from "../../hooks/useTitle";
 
 let classes = require("./styles.module.scss");
 
 const Profiles = () => {
+  useTitle("Profiles");
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.user as UserReducer);

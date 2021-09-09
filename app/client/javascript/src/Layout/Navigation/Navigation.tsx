@@ -32,7 +32,7 @@ const Navigation = () => {
   if (isFullscreen || !loggedIn) return null;
   return (
     <div className={classes.Navigation}>
-      <NavLink to="/" className={classes.AvatarContainer}>
+      <NavLink to="/profiles" className={classes.AvatarContainer}>
         <img
           src={user?.role === "admin" ? avatar_admin : avatar}
           alt="avatar"

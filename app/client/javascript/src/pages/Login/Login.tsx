@@ -2,10 +2,13 @@ import { Input } from "../../components";
 import { Link } from "react-router-dom";
 import { AuthButton, AuthTitle } from "../../UI";
 
-let classes = require("./styles.module.scss");
 import useSignIn from "./useSignIn";
+import useTitle from "../../hooks/useTitle";
+
+let classes = require("./styles.module.scss");
 
 const Login = () => {
+  useTitle("Login");
   const { formChangeHandler, inputBlurHandler, submitHandler, form } =
     useSignIn();
 

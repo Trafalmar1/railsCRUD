@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 
 import { Input } from "../../components";
+import useTitle from "../../hooks/useTitle";
 import { AuthButton, AuthTitle, Checkbox } from "../../UI";
-
-let classes = require("./styles.module.scss");
 import useSignUp from "./useSignUp";
 
+let classes = require("./styles.module.scss");
+
 const SignUp = () => {
+  useTitle("Sign up");
   const { submitHandler, inputBlurHandler, formChangeHandler, form } =
     useSignUp();
 

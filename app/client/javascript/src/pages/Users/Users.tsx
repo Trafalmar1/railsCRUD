@@ -6,10 +6,12 @@ import { UserCard } from "../../components";
 import { RootState } from "../../redux/store";
 import { User, UserReducer } from "../../redux/reducers/userReducer";
 import { getUsers } from "../../redux/actions/userActions";
+import useTitle from "../../hooks/useTitle";
 
 let classes = require("./styles.module.scss");
 
 const Users = () => {
+  useTitle("Users");
   const dispatch = useDispatch();
   const { users } = useSelector(
     (state: RootState) => state.user as UserReducer

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import classes from "./styles.module.scss";
+const classes = require("./styles.module.scss");
 
 type TitleProps = {
   children: string;

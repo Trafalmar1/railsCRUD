@@ -3,13 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { DashboardItem } from "../../components";
 import { Title } from "../../UI";
 
-let classes = require("./styles.module.scss");
 import { RootState } from "../../redux/store";
 import { UserReducer } from "../../redux/reducers/userReducer";
 import { useEffect } from "react";
 import { getDashboard } from "../../redux/actions/userActions";
+import useTitle from "../../hooks/useTitle";
+
+let classes = require("./styles.module.scss");
 
 const Dashboard = () => {
+  useTitle("Dashboard");
   const dispatch = useDispatch();
   const { dashboard } = useSelector(
     (state: RootState) => state.user as UserReducer
