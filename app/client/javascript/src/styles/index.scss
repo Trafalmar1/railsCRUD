@@ -38,7 +38,7 @@ code {
 }
 
 .Toaster {
-  transform: scale(1.5) translateX(-7rem) translateY(-4rem);
+  transform: scale(1.2) translateX(-3rem);
   @media screen and (max-width: 480px) {
     transform: none;
     font-size: 2rem;

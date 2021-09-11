@@ -1,40 +1,60 @@
-import { Input } from "../../components";
 import { Link } from "react-router-dom";
 import { AuthButton, AuthTitle } from "../../UI";
 
-import useSignIn from "./useSignIn";
 import useTitle from "../../hooks/useTitle";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ErrorMsg, SimpleInput } from "../../components";
+import { EMAIL } from "../../utils/regex";
+import useSignIn from "./useSignIn";
 
 let classes = require("./styles.module.scss");
+type Inputs = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
   useTitle("Login");
-  const { formChangeHandler, inputBlurHandler, submitHandler, form } =
-    useSignIn();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  const { submitHandler } = useSignIn();
+
+  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+    submitHandler(data);
+  };
 
   return (
     <div className={classes.Center}>
       <AuthTitle>Sign in</AuthTitle>
-      <form onSubmit={submitHandler} className={classes.Form}>
-        <Input
+      <form onSubmit={handleSubmit(onSubmit)} className={classes.Form}>
+        <SimpleInput
           label="Email"
-          value={form.email.value}
-          valid={form.email.valid}
-          touched={form.email.touched}
           name="email"
-          onBlur={inputBlurHandler}
-          onChange={formChangeHandler}
+          register={register}
+          validators={{
+            required: "Email can't be blank",
+            pattern: {
+              value: EMAIL,
+              message: "Wrong email format",
+            },
+          }}
+          errors={errors}
         />
-        <Input
+        <ErrorMsg errors={errors} name="email" />
+
+        <SimpleInput
           label="Password"
           type="password"
-          value={form.password.value}
-          valid={form.password.valid}
-          touched={form.password.touched}
           name="password"
-          onBlur={inputBlurHandler}
-          onChange={formChangeHandler}
+          register={register}
+          validators={{ required: "Password can't be blank" }}
+          errors={errors}
         />
+        <ErrorMsg errors={errors} name="password" />
+
         <Link to="sign-up">Create new account</Link>
         <AuthButton type="submit" name={"Sign In"} />
       </form>

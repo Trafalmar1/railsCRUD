@@ -185,10 +185,6 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
-    simple_token_authentication (1.17.0)
-      actionmailer (>= 3.2.6, < 7)
-      actionpack (>= 3.2.6, < 7)
-      devise (>= 3.2, < 6)
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -243,7 +239,6 @@ DEPENDENCIES
   react-rails
   sass-rails (>= 6)
   selenium-webdriver
-  simple_token_authentication (~> 1.0)
   spring
   sqlite3 (~> 1.4)
   tzinfo-data
@@ -252,7 +247,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 3.0.2p107
 
 BUNDLED WITH
-   2.1.2
+   2.2.27
